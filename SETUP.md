@@ -153,3 +153,4 @@ types/
 - Cache collection data for offline use
 - Add more detailed release information
 
+

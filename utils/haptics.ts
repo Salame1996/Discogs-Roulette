@@ -12,3 +12,4 @@ export function triggerHaptic(type: Haptics.ImpactFeedbackStyle = Haptics.Impact
   }
 }
 
+
