@@ -277,12 +277,28 @@ export async function initiateAuth(userId?: string): Promise<string> {
     console.log('Request token received');
     
     // Store request tokens temporarily (we'll need them in the callback)
+    // On web, also store in sessionStorage as backup
     await setItem('discogs_request_token', requestTokens.token);
     await setItem('discogs_request_token_secret', requestTokens.tokenSecret);
+    
+    if (Platform.OS === 'web' && typeof window !== 'undefined') {
+      try {
+        window.sessionStorage.setItem('discogs_request_token', requestTokens.token);
+        window.sessionStorage.setItem('discogs_request_token_secret', requestTokens.tokenSecret);
+        console.log('Request tokens also stored in sessionStorage');
+      } catch (e) {
+        console.warn('Could not store in sessionStorage:', e);
+      }
+    }
 
     const authUrl = `${DISCOGS_CONFIG.authUrl}?oauth_token=${requestTokens.token}`;
+    const redirectUri = DISCOGS_CONFIG.redirectUri;
+    console.log('=== OAuth Configuration ===');
     console.log('Auth URL:', authUrl);
-    console.log('Redirect URI:', DISCOGS_CONFIG.redirectUri);
+    console.log('Redirect URI being sent to Discogs:', redirectUri);
+    console.log('IMPORTANT: Make sure this exact URL is in your Discogs app settings:');
+    console.log('  ', redirectUri);
+    console.log('===========================');
     
     // On web, redirect directly to Discogs
     if (Platform.OS === 'web') {
@@ -355,11 +371,29 @@ export async function handleAuthCallback(callbackUrl: string): Promise<AccessTok
   }
 
   // Get stored request tokens
-  const requestToken = await getItem('discogs_request_token');
-  const requestTokenSecret = await getItem('discogs_request_token_secret');
+  let requestToken = await getItem('discogs_request_token');
+  let requestTokenSecret = await getItem('discogs_request_token_secret');
+
+  // On web, try sessionStorage as fallback
+  if ((!requestToken || !requestTokenSecret) && Platform.OS === 'web' && typeof window !== 'undefined') {
+    console.log('Request tokens not found in AsyncStorage, checking sessionStorage...');
+    try {
+      requestToken = requestToken || window.sessionStorage.getItem('discogs_request_token');
+      requestTokenSecret = requestTokenSecret || window.sessionStorage.getItem('discogs_request_token_secret');
+      if (requestToken && requestTokenSecret) {
+        console.log('Found request tokens in sessionStorage');
+      }
+    } catch (e) {
+      console.warn('Could not access sessionStorage:', e);
+    }
+  }
 
   if (!requestToken || !requestTokenSecret) {
-    throw new Error('Request tokens not found');
+    const errorMsg = 'Request tokens not found. The OAuth session may have expired or the redirect URL mismatch. Please try signing in again.';
+    console.error(errorMsg);
+    console.error('Request token exists:', !!requestToken);
+    console.error('Request token secret exists:', !!requestTokenSecret);
+    throw new Error(errorMsg);
   }
 
   // Clean up request tokens

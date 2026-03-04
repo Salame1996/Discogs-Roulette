@@ -26,39 +26,66 @@ export default function OAuthCallbackScreen() {
 
   const handleCallback = async () => {
     try {
+      console.log('OAuth callback started');
+      console.log('URL params:', params);
+      console.log('Current URL:', Platform.OS === 'web' && typeof window !== 'undefined' ? window.location.href : 'N/A');
+      
       // Get OAuth parameters from URL
       const oauthToken = params.oauth_token as string;
       const oauthVerifier = params.oauth_verifier as string;
 
+      console.log('OAuth token:', oauthToken ? 'Present' : 'Missing');
+      console.log('OAuth verifier:', oauthVerifier ? 'Present' : 'Missing');
+
       if (!oauthToken || !oauthVerifier) {
-        throw new Error('Missing OAuth parameters');
+        const errorMsg = `Missing OAuth parameters. Token: ${oauthToken ? 'present' : 'missing'}, Verifier: ${oauthVerifier ? 'present' : 'missing'}`;
+        console.error(errorMsg);
+        throw new Error(errorMsg);
       }
 
       // Construct callback URL
       let callbackUrl: string;
       if (Platform.OS === 'web' && typeof window !== 'undefined') {
         callbackUrl = `${window.location.origin}${window.location.pathname}?oauth_token=${oauthToken}&oauth_verifier=${oauthVerifier}`;
+        console.log('Constructed callback URL:', callbackUrl);
       } else {
         // For mobile, use the redirect URI from config
         const { DISCOGS_CONFIG } = await import('@/config/discogs');
         callbackUrl = `${DISCOGS_CONFIG.redirectUri}?oauth_token=${oauthToken}&oauth_verifier=${oauthVerifier}`;
+        console.log('Mobile callback URL:', callbackUrl);
       }
 
       // Get the user ID that was stored before OAuth
       let userId = await AsyncStorage.getItem('discogs_oauth_user_id');
+      console.log('Stored user ID:', userId || 'Not found');
       
       if (!userId) {
         // Try to get current user
+        console.log('No stored user ID, trying to get current user...');
         const currentUser = await getCurrentUser();
         if (!currentUser) {
           throw new Error('No user found. Please sign in first.');
         }
         userId = currentUser.id;
+        console.log('Found current user:', userId);
         await AsyncStorage.setItem('discogs_oauth_user_id', userId);
       }
 
+      // Check if request tokens exist before proceeding
+      const { getItem } = await import('@/services/storage');
+      const requestToken = await getItem('discogs_request_token');
+      const requestTokenSecret = await getItem('discogs_request_token_secret');
+      console.log('Request token exists:', !!requestToken);
+      console.log('Request token secret exists:', !!requestTokenSecret);
+      
+      if (!requestToken || !requestTokenSecret) {
+        throw new Error('Request tokens not found. The OAuth session may have expired. Please try signing in again.');
+      }
+
+      console.log('Calling handleAuthCallback...');
       // Handle the callback and get tokens
       const tokens = await handleAuthCallback(callbackUrl);
+      console.log('Tokens received:', tokens ? 'Success' : 'Failed');
 
       // Fetch full user profile from Discogs API
       let discogsUsername = tokens.username;
@@ -96,10 +123,22 @@ export default function OAuthCallbackScreen() {
       router.replace('/(tabs)');
     } catch (error: any) {
       console.error('OAuth callback error:', error);
+      console.error('Error stack:', error.stack);
+      console.error('Error details:', JSON.stringify(error, null, 2));
+      
+      // Show error to user before redirecting
+      const errorMessage = error?.message || 'OAuth authentication failed';
+      console.error('Redirecting to login with error:', errorMessage);
+      
+      // On web, we can show an alert before redirecting
+      if (Platform.OS === 'web' && typeof window !== 'undefined') {
+        alert(`OAuth Error: ${errorMessage}\n\nPlease try signing in again.`);
+      }
+      
       // Redirect to login with error
       router.replace({
         pathname: '/login',
-        params: { error: error.message || 'OAuth authentication failed' },
+        params: { error: errorMessage },
       });
     }
   };
