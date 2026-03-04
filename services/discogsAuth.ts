@@ -418,15 +418,56 @@ export async function handleAuthCallback(callbackUrl: string): Promise<AccessTok
   const authHeader = generateOAuthHeader(params);
 
   try {
-    const response = await axios.post(
-      DISCOGS_CONFIG.tokenUrl,
-      {},
-      {
-        headers: {
-          Authorization: authHeader,
-        },
+    // On web, we MUST use a proxy to avoid CORS issues
+    // On mobile, we can make direct requests
+    const proxyUrl = Platform.OS === 'web' ? DISCOGS_CONFIG.proxyUrl : null;
+    
+    console.log('Exchanging access token...');
+    console.log('Platform:', Platform.OS);
+    console.log('Using proxy:', !!proxyUrl);
+    
+    let response;
+    if (proxyUrl) {
+      // Use proxy endpoint (web only)
+      console.log('Exchanging token via proxy:', proxyUrl);
+      try {
+        response = await axios.post(
+          proxyUrl,
+          {
+            action: 'access_token',
+            authHeader: authHeader,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        console.log('Access token response received via proxy');
+      } catch (proxyError: any) {
+        console.error('Proxy error:', proxyError);
+        if (proxyError?.response?.status === 404) {
+          throw new Error(
+            'OAuth proxy endpoint not found (404). The /api/discogs-oauth endpoint is only available when deployed to Vercel.\n\n' +
+            'Please ensure the app is deployed and the serverless function is accessible.'
+          );
+        }
+        throw proxyError;
       }
-    );
+    } else {
+      // Direct request (mobile only - this works because mobile doesn't have CORS restrictions)
+      console.log('Exchanging token directly (mobile):', DISCOGS_CONFIG.tokenUrl);
+      response = await axios.post(
+        DISCOGS_CONFIG.tokenUrl,
+        {},
+        {
+          headers: {
+            Authorization: authHeader,
+          },
+        }
+      );
+      console.log('Access token response received directly');
+    }
 
     // Parse response
     const tokenData: Record<string, string> = {};
