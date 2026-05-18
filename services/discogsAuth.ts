@@ -511,7 +511,7 @@ export async function handleAuthCallback(callbackUrl: string): Promise<AccessTok
       const identityResponse = await axios.get(url, {
         headers: {
           Authorization: authHeader,
-          'User-Agent': 'DiscogsQuizApp/1.0',
+          'User-Agent': 'VinylRoulette/1.0',
         },
       });
       
@@ -596,7 +596,7 @@ export async function makeAuthenticatedRequest(
       url,
       headers: {
         Authorization: authHeader,
-        'User-Agent': 'DiscogsQuizApp/1.0',
+        'User-Agent': 'VinylRoulette/1.0',
       },
       params: method.toUpperCase() === 'GET' ? params : undefined,
       data: method.toUpperCase() !== 'GET' ? params : undefined,

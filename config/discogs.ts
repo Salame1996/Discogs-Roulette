@@ -7,7 +7,7 @@
  * 3. Create a new application
  * 4. Copy your Consumer Key and Consumer Secret
  * 5. Set the redirect URIs:
- *    - Mobile: discogsquizapp://oauth/callback
+ *    - Mobile: vinylroulette://oauth/callback
  *    - Web: https://yourdomain.com/oauth/callback (replace with your actual domain)
  * 6. Replace the values below or use environment variables
  */
@@ -31,7 +31,7 @@ export function getRedirectUri(): string {
     return '/oauth/callback';
   }
   // For mobile, use the deep link
-  return 'discogsquizapp://oauth/callback';
+  return 'vinylroulette://oauth/callback';
 }
 
 // Get from environment variables or use defaults (you should replace these)

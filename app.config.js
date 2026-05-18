@@ -2,17 +2,17 @@ require('dotenv').config();
 
 module.exports = {
   expo: {
-    name: "discogs-quiz-app",
-    slug: "discogs-quiz-app",
+    name: "Vinyl Roulette",
+    slug: "vinyl-roulette",
     version: "1.0.0",
     orientation: "portrait",
     icon: "./assets/images/icon.png",
-    scheme: "discogsquizapp",
+    scheme: "vinylroulette",
     userInterfaceStyle: "automatic",
     newArchEnabled: true,
     ios: {
       supportsTablet: true,
-      bundleIdentifier: "com.discogsquiz.app"
+      bundleIdentifier: "com.vinylroulette.app"
     },
     android: {
       adaptiveIcon: {

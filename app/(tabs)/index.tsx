@@ -63,7 +63,7 @@ export default function HomeScreen() {
     <ThemedView style={styles.container}>
       <View style={styles.header}>
         <ThemedText type="title" style={styles.title}>
-          Discogs Quiz
+          Vinyl Roulette
         </ThemedText>
         <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
           <ThemedText style={styles.logoutText}>Logout</ThemedText>

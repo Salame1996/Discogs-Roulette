@@ -113,7 +113,7 @@ Recommendation Screen (display result)
 ### Required Credentials:
 - **Consumer Key**: From Discogs developer settings
 - **Consumer Secret**: From Discogs developer settings
-- **Callback URL**: `discogsquizapp://oauth/callback`
+- **Callback URL**: `vinylroulette://oauth/callback`
 
 See `SETUP.md` for detailed setup instructions.
 

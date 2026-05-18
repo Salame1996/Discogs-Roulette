@@ -1,4 +1,4 @@
-# Discogs Quiz App - Setup Guide
+# Vinyl Roulette - Setup Guide
 
 ## Discogs API Credentials Required
 
@@ -13,10 +13,10 @@ To use this app, you need to obtain OAuth credentials from Discogs:
 2. Go to https://www.discogs.com/settings/developers
 3. Click "Create a new application"
 4. Fill in the application details:
-   - **Application Name**: Discogs Quiz App (or any name you prefer)
+   - **Application Name**: Vinyl Roulette (or any name you prefer)
    - **Description**: Music taste quiz app
    - **Website**: (optional, can be your GitHub repo or personal site)
-   - **Callback URL**: `discogsquizapp://oauth/callback`
+   - **Callback URL**: `vinylroulette://oauth/callback`
 5. Click "Create"
 6. Copy your **Consumer Key** and **Consumer Secret**
 
@@ -116,7 +116,7 @@ For large collections, fetching all release details may take time. The app limit
 - Go to https://www.discogs.com/my and add some releases to your collection
 
 ### OAuth callback not working
-- Verify the callback URL in your Discogs app settings matches: `discogsquizapp://oauth/callback`
+- Verify the callback URL in your Discogs app settings matches: `vinylroulette://oauth/callback`
 - Make sure the URL scheme is configured in `app.json`
 
 ### No matches found
