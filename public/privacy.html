@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vinyl Roulette — Privacy Policy</title>
+  <meta name="description" content="Privacy policy for the Vinyl Roulette iOS app." />
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #fafafa;
+      --fg: #111;
+      --muted: #555;
+      --accent: #7a4cff;
+      --card: #fff;
+      --border: #e5e5e5;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f0f12;
+        --fg: #f5f5f5;
+        --muted: #aaa;
+        --card: #1a1a1f;
+        --border: #2a2a2f;
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font: 16px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      padding: 32px 20px 80px;
+    }
+    main { max-width: 720px; margin: 0 auto; }
+    header { text-align: center; padding: 24px 0 8px; }
+    header h1 { font-size: 30px; margin: 0 0 4px; letter-spacing: -0.02em; }
+    header p { color: var(--muted); margin: 0; }
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin: 20px 0;
+    }
+    h2 { font-size: 20px; margin: 0 0 12px; }
+    h3 { font-size: 16px; margin: 18px 0 6px; }
+    p, li { color: var(--fg); }
+    p { margin: 8px 0; }
+    ul { padding-left: 22px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 32px; }
+    footer a { color: var(--muted); }
+    .meta { color: var(--muted); font-size: 14px; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Privacy Policy</h1>
+      <p class="meta">Vinyl Roulette &middot; Last updated May 17, 2026</p>
+    </header>
+
+    <section>
+      <h2>The short version</h2>
+      <p>
+        Vinyl Roulette does not collect, sell, or share your personal data.
+        Your Discogs OAuth tokens are stored on your iPhone in the iOS Keychain.
+        We do not run analytics, we do not use third-party trackers, and we do not
+        profile your music taste.
+      </p>
+    </section>
+
+    <section>
+      <h2>What we access</h2>
+
+      <h3>Your Discogs collection</h3>
+      <p>
+        When you sign in with Discogs, the app uses Discogs' official OAuth flow to fetch
+        your collection (release titles, artists, formats, and cover artwork URLs).
+        This data is held in memory on your device while you use the app and is not
+        transmitted to any server we control.
+      </p>
+
+      <h3>Your Discogs username</h3>
+      <p>
+        We display your Discogs username in the app interface. It is stored on-device
+        only.
+      </p>
+
+      <h3>OAuth tokens</h3>
+      <p>
+        After you authorize the app, Discogs issues OAuth access tokens to your
+        device. We store these tokens in the iOS Keychain (the same secure storage
+        Apple uses for passwords). They never leave your device except to make signed
+        requests directly to the Discogs API.
+      </p>
+    </section>
+
+    <section>
+      <h2>What we do not collect</h2>
+      <ul>
+        <li>We do not collect your email address.</li>
+        <li>We do not collect your Discogs password &mdash; OAuth means Discogs handles authentication directly.</li>
+        <li>We do not collect analytics or usage telemetry.</li>
+        <li>We do not collect device identifiers, advertising IDs, or location data.</li>
+        <li>We do not use third-party SDKs that track you (no Facebook SDK, no Google Analytics, no crash reporters that ship PII).</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Servers and third parties</h2>
+      <p>
+        The app connects to two services on your behalf:
+      </p>
+      <ul>
+        <li>
+          <strong>Discogs API</strong> (api.discogs.com) &mdash; for collection data and album
+          metadata. See <a href="https://www.discogs.com/privacy" target="_blank" rel="noopener">Discogs' privacy policy</a>.
+        </li>
+        <li>
+          <strong>Our OAuth proxy</strong> (vinyl-roulette.vercel.app) &mdash; a small serverless
+          function that performs the OAuth request-token / access-token exchange. It exists only
+          because Discogs' OAuth endpoints do not support CORS. The proxy receives the OAuth
+          signature for those two API calls; it does not see your Discogs password and does not
+          log or retain user data.
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Your choices</h2>
+      <p>
+        You can sign out at any time from the home screen, which removes all stored OAuth
+        tokens from your device. You can also revoke the app's access from your
+        <a href="https://www.discogs.com/settings/applications" target="_blank" rel="noopener">
+          Discogs Applications page</a>.
+      </p>
+      <p>
+        Uninstalling the app removes all locally stored data.
+      </p>
+    </section>
+
+    <section>
+      <h2>Children</h2>
+      <p>
+        Vinyl Roulette is not directed at children under 13 and does not knowingly collect
+        information from them.
+      </p>
+    </section>
+
+    <section>
+      <h2>Changes to this policy</h2>
+      <p>
+        If we materially change how the app handles your data, we'll update this page and
+        bump the "Last updated" date. Continued use of the app after a change indicates
+        acceptance of the revised policy.
+      </p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>
+        Questions about this policy? Email
+        <a href="mailto:carlossalame96@gmail.com?subject=Vinyl%20Roulette%20Privacy">carlossalame96@gmail.com</a>.
+      </p>
+    </section>
+
+    <footer>
+      &copy; 2026 Carlos Salame &middot;
+      <a href="/support">Support</a> &middot;
+      <a href="mailto:carlossalame96@gmail.com">Contact</a>
+    </footer>
+  </main>
+</body>
+</html>

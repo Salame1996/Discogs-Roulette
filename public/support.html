@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vinyl Roulette — Support</title>
+  <meta name="description" content="Help, FAQ, and contact info for the Vinyl Roulette iOS app." />
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #fafafa;
+      --fg: #111;
+      --muted: #555;
+      --accent: #7a4cff;
+      --card: #fff;
+      --border: #e5e5e5;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f0f12;
+        --fg: #f5f5f5;
+        --muted: #aaa;
+        --card: #1a1a1f;
+        --border: #2a2a2f;
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font: 16px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      padding: 32px 20px 80px;
+    }
+    main { max-width: 720px; margin: 0 auto; }
+    header { text-align: center; padding: 24px 0 8px; }
+    header h1 {
+      font-size: 32px;
+      margin: 0 0 4px;
+      letter-spacing: -0.02em;
+    }
+    header p { color: var(--muted); margin: 0; }
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin: 20px 0;
+    }
+    h2 { font-size: 20px; margin: 0 0 12px; letter-spacing: -0.01em; }
+    h3 { font-size: 16px; margin: 18px 0 6px; }
+    p, li { color: var(--fg); }
+    p { margin: 8px 0; }
+    ul { padding-left: 22px; margin: 8px 0; }
+    li { margin: 4px 0; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+      background: rgba(122, 76, 255, 0.1);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+    .contact-card {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      text-align: center;
+    }
+    .contact-card h2 { color: #fff; }
+    .contact-card a { color: #fff; font-weight: 600; text-decoration: underline; }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 32px;
+    }
+    footer a { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Vinyl Roulette</h1>
+      <p>Support &amp; Help Center</p>
+    </header>
+
+    <section class="contact-card">
+      <h2>Need help? Email us.</h2>
+      <p>We answer every message, usually within 1&ndash;2 business days.</p>
+      <p style="font-size: 18px; margin-top: 14px;">
+        <a href="mailto:carlossalame96@gmail.com?subject=Vinyl%20Roulette%20Support">carlossalame96@gmail.com</a>
+      </p>
+    </section>
+
+    <section>
+      <h2>What is Vinyl Roulette?</h2>
+      <p>
+        Vinyl Roulette is an iPhone app that recommends records from <em>your own</em> collection.
+        Connect your <a href="https://www.discogs.com" target="_blank" rel="noopener">Discogs</a>
+        account, take a quick mood quiz, and get a personalized pick from the records you already own.
+        No streaming, no algorithms pushing music you don't have.
+      </p>
+    </section>
+
+    <section>
+      <h2>Frequently asked questions</h2>
+
+      <h3>How do I connect my Discogs collection?</h3>
+      <p>
+        On the login screen, tap <strong>"Sign in with Discogs"</strong>. A secure Discogs window
+        opens, you authorize Vinyl Roulette, and we pull in your collection automatically.
+        No password is ever sent to us &mdash; the connection uses OAuth.
+      </p>
+
+      <h3>I don't have any records in Discogs yet. What now?</h3>
+      <p>
+        You'll need a Discogs collection with at least a few records for the recommendation engine
+        to work. Add records on the Discogs website or mobile app, then come back and refresh in
+        the Library tab.
+      </p>
+
+      <h3>How does the mood quiz work?</h3>
+      <p>
+        Tap <strong>Take the Quiz</strong> on the home screen. Three quick questions about your
+        current mood, and we'll match you with an album from your collection that fits the vibe.
+        Spin again any time for a different pick.
+      </p>
+
+      <h3>The app says my collection is empty, but it isn't.</h3>
+      <p>
+        This usually means the OAuth token expired. Sign out from the home screen, then sign in
+        with Discogs again. If the problem persists, email us.
+      </p>
+
+      <h3>Can I disconnect Discogs?</h3>
+      <p>
+        Yes. Tap <strong>Logout</strong> on the home screen and your OAuth tokens are removed
+        from your iPhone immediately. You can also revoke access on the
+        <a href="https://www.discogs.com/settings/applications" target="_blank" rel="noopener">
+          Discogs Applications page</a>.
+      </p>
+
+      <h3>Is my data sold or shared?</h3>
+      <p>
+        No. We do not sell, share, or analyze your listening habits. Your Discogs tokens are
+        stored on-device in the iOS Keychain. See our <a href="/privacy">Privacy Policy</a> for
+        full details.
+      </p>
+
+      <h3>Does the app work without Discogs?</h3>
+      <p>
+        No. Vinyl Roulette is specifically designed around your Discogs collection. A free
+        Discogs account is required.
+      </p>
+
+      <h3>I found a bug or have a feature request.</h3>
+      <p>
+        We'd love to hear it. Email <a href="mailto:carlossalame96@gmail.com">carlossalame96@gmail.com</a>
+        with the details &mdash; if it's a crash, please include your iOS version and the screen
+        you were on.
+      </p>
+    </section>
+
+    <section>
+      <h2>System requirements</h2>
+      <ul>
+        <li>iPhone running iOS 17 or later</li>
+        <li>A free <a href="https://www.discogs.com/users/signup" target="_blank" rel="noopener">Discogs</a> account</li>
+        <li>An internet connection</li>
+      </ul>
+    </section>
+
+    <footer>
+      &copy; 2026 Carlos Salame &middot;
+      <a href="/privacy">Privacy Policy</a> &middot;
+      <a href="mailto:carlossalame96@gmail.com">Contact</a>
+    </footer>
+  </main>
+</body>
+</html>

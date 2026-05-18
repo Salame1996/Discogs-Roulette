@@ -3,11 +3,19 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
+      "source": "/support",
+      "destination": "/support.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy.html"
+    },
+    {
       "source": "/api/:path*",
       "destination": "/api/:path*"
     },
     {
-      "source": "/((?!api/).*)",
+      "source": "/((?!api/|support|privacy).*)",
       "destination": "/index.html"
     }
   ],
